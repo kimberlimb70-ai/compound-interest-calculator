@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compound Interest Calculator With Monthly Contributions</title>
+  <meta name="description" content="Free compound interest calculator with monthly contributions. Estimate future value, total contributions, and interest earned over time." />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: #e2e8f0;
+      --accent: #10b981;
+      --accent-dark: #059669;
+      --dark: #111827;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .hero {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      padding: 56px 0;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .badge {
+      display: inline-block;
+      background: #ecfdf5;
+      color: var(--accent-dark);
+      border: 1px solid #bbf7d0;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 44px;
+      line-height: 1.1;
+      margin: 0 0 16px;
+    }
+    h2 { font-size: 32px; margin: 0 0 14px; }
+    h3 { font-size: 21px; margin: 0 0 10px; }
+    p { color: var(--muted); margin: 0 0 16px; }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 24px 0 28px;
+    }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: 1px solid var(--line);
+    }
+    .btn-primary {
+      background: var(--dark);
+      color: #fff;
+      border-color: var(--dark);
+    }
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .mini-card, .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 18px;
+    }
+    .mini-card strong { font-size: 26px; display: block; color: var(--text); }
+    .calculator {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    input, select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      font-size: 16px;
+      background: #fff;
+    }
+    .full { grid-column: 1 / -1; }
+    .results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .result-main {
+      background: var(--dark);
+      color: #fff;
+    }
+    .result-main p, .result-main .label { color: #cbd5e1; }
+    .label { font-size: 14px; color: var(--muted); }
+    .value { font-size: 30px; font-weight: 800; margin-top: 6px; }
+    .section { padding: 56px 0; }
+    .three-grid, .two-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .three-grid { grid-template-columns: repeat(3, 1fr); }
+    .two-grid { grid-template-columns: repeat(2, 1fr); }
+    .keyword {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--text);
+    }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .footer {
+      text-align: center;
+      padding: 28px 20px 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    @media (max-width: 900px) {
+      .hero-grid, .three-grid, .two-grid, .results, .feature-grid, .faq-grid, .form-grid {
+        grid-template-columns: 1fr;
+      }
+      h1 { font-size: 34px; }
+      h2 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge">Free compound interest calculator</div>
+        <h1>Compound Interest Calculator With Monthly Contributions</h1>
+        <p>Estimate how your money could grow over time with compound interest, recurring deposits, and long-term investing.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="#calculator">Try the calculator</a>
+          <a class="btn btn-secondary" href="#how-it-works">Learn how it works</a>
+        </div>
+        <div class="feature-grid">
+          <div class="mini-card"><strong>Free</strong><span>No signup</span></div>
+          <div class="mini-card"><strong>Fast</strong><span>Instant results</span></div>
+          <div class="mini-card"><strong>Evergreen</strong><span>Useful year-round</span></div>
+        </div>
+      </div>
+
+      <div id="calculator" class="calculator">
+        <h3>Calculate your future value</h3>
+        <div class="form-grid">
+          <div>
+            <label for="initialAmount">Initial investment</label>
+            <input id="initialAmount" type="number" value="1000" />
+          </div>
+          <div>
+            <label for="monthlyContribution">Monthly contribution</label>
+            <input id="monthlyContribution" type="number" value="200" />
+          </div>
+          <div>
+            <label for="annualRate">Annual interest rate (%)</label>
+            <input id="annualRate" type="number" step="0.1" value="8" />
+          </div>
+          <div>
+            <label for="years">Years to grow</label>
+            <input id="years" type="number" value="20" />
+          </div>
+          <div class="full">
+            <label for="compoundFrequency">Compounding frequency</label>
+            <select id="compoundFrequency">
+              <option value="1">Annually</option>
+              <option value="4">Quarterly</option>
+              <option value="12" selected>Monthly</option>
+              <option value="365">Daily</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="results">
+          <div class="card result-main">
+            <div class="label">Future value</div>
+            <div class="value" id="futureValue">$0</div>
+          </div>
+          <div class="card">
+            <div class="label">Total contributions</div>
+            <div class="value" id="totalContributions">$0</div>
+          </div>
+          <div class="card">
+            <div class="label">Interest earned</div>
+            <div class="value" id="totalInterest">$0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works">
+    <div class="container three-grid">
+      <div class="card">
+        <h3>Why this niche works</h3>
+        <p>Compound interest is evergreen, monetizable, and easy to expand into a broader savings and investing tools site.</p>
+      </div>
+      <div class="card">
+        <h3>What to add next</h3>
+        <p>Build a savings goal calculator, retirement calculator, and investment return calculator to grow topical authority.</p>
+      </div>
+      <div class="card">
+        <h3>How to monetize</h3>
+        <p>Start with display ads, then add email capture, affiliate offers for investing tools, and printable budget products.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-grid">
+      <div class="card">
+        <h2>SEO copy for your homepage</h2>
+        <p>Use this free compound interest calculator to estimate how much your money could grow over time. Enter your starting amount, monthly contributions, expected return, and time horizon to see your future balance, total contributions, and estimated interest earned.</p>
+        <p>This tool is helpful for investors, savers, and anyone planning for long-term financial goals such as retirement, emergency savings, or wealth building.</p>
+      </div>
+      <div class="card">
+        <h2>Starter keyword ideas</h2>
+        <div class="two-grid">
+          <div class="keyword">compound interest calculator with monthly contributions</div>
+          <div class="keyword">investment calculator with monthly deposits</div>
+          <div class="keyword">future value calculator</div>
+          <div class="keyword">how much will my investment grow</div>
+          <div class="keyword">compound growth calculator</div>
+          <div class="keyword">retirement savings calculator</div>
+          <div class="keyword">savings calculator with interest</div>
+          <div class="keyword">compound interest formula calculator</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container card">
+      <h2>Frequently asked questions</h2>
+      <div class="faq-grid">
+        <div>
+          <h3>What is compound interest?</h3>
+          <p>Compound interest means you earn returns on both your original money and the interest already added over time.</p>
+        </div>
+        <div>
+          <h3>Why do monthly contributions matter?</h3>
+          <p>Small recurring deposits can make a major difference because each contribution also has time to compound.</p>
+        </div>
+        <div>
+          <h3>Is this calculator good for retirement planning?</h3>
+          <p>Yes. It is a simple way to estimate long-term investment growth for retirement, savings goals, or general wealth building.</p>
+        </div>
+        <div>
+          <h3>What should I build after this?</h3>
+          <p>Add related finance tools so your site becomes more useful and easier to grow through SEO.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">© Mercado Digital — Compound Interest Calculator</div>
+
+  <script>
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+      }).format(value);
+    }
+
+    function calculateCompoundInterest() {
+      const P = parseFloat(document.getElementById('initialAmount').value) || 0;
+      const PMT = parseFloat(document.getElementById('monthlyContribution').value) || 0;
+      const annualRate = parseFloat(document.getElementById('annualRate').value) || 0;
+      const years = parseFloat(document.getElementById('years').value) || 0;
+      const compoundFrequency = parseFloat(document.getElementById('compoundFrequency').value) || 12;
+
+      const r = annualRate / 100;
+      const monthlyRate = r / 12;
+      const totalMonths = years * 12;
+
+      let balance = P;
+      let totalContributions = P;
+
+      for (let month = 1; month <= totalMonths; month++) {
+        balance = balance * (1 + monthlyRate);
+        balance += PMT;
+        totalContributions += PMT;
+      }
+
+      const totalInterest = balance - totalContributions;
+
+      document.getElementById('futureValue').textContent = formatCurrency(balance);
+      document.getElementById('totalContributions').textContent = formatCurrency(totalContributions);
+      document.getElementById('totalInterest').textContent = formatCurrency(totalInterest);
+    }
+
+    document.querySelectorAll('input, select').forEach((el) => {
+      el.addEventListener('input', calculateCompoundInterest);
+      el.addEventListener('change', calculateCompoundInterest);
+    });
+
+    calculateCompoundInterest();
+  </script>
+</body>
+</html>
