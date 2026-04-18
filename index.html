@@ -115,14 +115,26 @@
       font-weight: 700;
       margin-bottom: 8px;
     }
-    input, select {
-      width: 100%;
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      font-size: 16px;
-      background: #fff;
-    }
+     input, select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #dbe3ee;
+  border-radius: 14px;
+  font-size: 16px;
+  background: #ffffff;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+input:focus, select:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+}
+
+input:hover, select:hover {
+  border-color: #cbd5e1;
+}
     .full { grid-column: 1 / -1; }
     .results {
       display: grid;
